@@ -21,10 +21,10 @@ Warning：The file to be compressed and the file after uncompressed is saved in 
 结构体：
 typedef struct node
 {
-&nbsp; &nbsp; int count;//统计字符个数
-&nbsp; &nbsp; unsigned char ch;//扫描文本文件的字符
-&nbsp; &nbsp; int parent,lchild,rchild; &nbsp; &nbsp;//构建二叉树
-&nbsp; &nbsp; char bits[256];//二叉树的字符编码‘010101010101...’
+int count;//统计字符个数
+unsigned char ch;//扫描文本文件的字符
+int parent,lchild,rchild;//构建二叉树
+char bits[256];//二叉树的字符编码‘010101010101...’
 }header[512],temp;
 
 
@@ -67,4 +67,4 @@ D &nbsp;'0'
 解压缩->读取 150，254，0
 转换为‘0101...’类型的字符串->10010110,11111110,0->补齐（10010110,11111110,00000000）
 利用memcmp函数在哈夫曼编码表中逐一查找。
-100(A)101(B)101(B)11(C)11(C)11(C)11(C)0(D)0(D)0(D)0(D)0(D)剩下的0可以根据实现记录添加的0的个数然后剔除掉。</span>
+100(A)101(B)101(B)11(C)11(C)11(C)11(C)0(D)0(D)0(D)0(D)0(D)剩下的0可以根据实现记录添加的0的个数然后剔除掉。
