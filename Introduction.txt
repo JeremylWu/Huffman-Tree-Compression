@@ -6,7 +6,7 @@ Operating Environment：IDE:Code::Blocks 12.11
 Main algorithm：Huffman Tree Compression
 Warning：The file to be compressed and the file after uncompressed is saved in the same file
 
-
+ 
 原理：(哈夫曼编码思想)
 首先遍历要处理的文本文件，得到每个字符的出现的次数；
 将每个字符（以其出现次数为权值）分别构造为二叉树（此时的二叉树只有一个节点）；
