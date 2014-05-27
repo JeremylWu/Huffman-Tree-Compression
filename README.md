@@ -7,4 +7,3 @@ Operating Environment：IDE:Code::Blocks 12.11
 		  OS : Windows 8.1 -64Bit 
 Main algorithm：Huffman Tree Compression
 Warning：The file to be compressed and the file after uncompressed is saved in the same file
-========================
