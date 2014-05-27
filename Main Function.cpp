@@ -111,7 +111,6 @@ int main(){
 	return 0;
 }
 
-/*Show Command function*/
 void print_command(){
 	printf(" 1 : Compressed text file.\n");
 	printf(" 2 : Uncompress text file.\n");
@@ -128,8 +127,8 @@ void init(){
     printf("\\\n");
     printf("|  Welcome to file Compressor powered by Huffman Tree:");
     printf("  |\n");
-	printf("|  Version : V1.0 Author : Jeremy Wu                    |\n|  Class : CS1303 School : ZJSU\t\t\t\t|\n|\t\t\t\t\t\t\t|\n");
-	printf("|  Warning : the input file must be named as in|\n");
+	printf("|  Version : V1.01 Author : Jeremy Wu                   |\n|  Class : CS1303 School : ZJSU\t\t\t\t|\n|\t\t\t\t\t\t\t|\n");
+	printf("|  Warning : the input file must be named as in\t\t|\n");
     printf("|  Please choose functions as follow:\t\t\t|\n");
     printf("\\");
     for(int i = 0; i < 55; ++i) printf("*");
@@ -329,7 +328,7 @@ void transfer_to_file(long sum,char inputfile[],char sto[]){
 	}
 	fseek(info,0L,SEEK_END);
 	fprintf(info,"%s",sto);
-	
+
 	//fprintf(info,"\n");
 	fclose(info);
 
@@ -485,7 +484,6 @@ void uncompress(char sto[],char filename[]){
 	return;
 }
 
-/*Print Function*/
 void print(){
 	FILE *info;
 	char str[128];
@@ -502,7 +500,6 @@ void print(){
 	printf("\n\n");
 	fclose(info);
 }
-
 int print_info(){
 	FILE *fp;
 	char str[128];
@@ -529,7 +526,6 @@ int print_info(){
 	fclose(fp);
 	return 1;
 }
-
 void print_history(){
 	char ch;
 	FILE *fp;
