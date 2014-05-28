@@ -47,11 +47,11 @@ int main(){
 		}
 		else if(ch == '1'){
 			flag_file = 1;
-			print();
+			//print();
 			strcpy(input_file, "in");
-			//printf("Please scan the file name to be compressed.\n");
+			//printf("Please input the file name to be compressed.\n");
 			//scanf("%s",input_file);
-			printf("Please scan the file name after compressed.\n");
+			printf("Please input the file name after compressed.\n");
 			scanf("%s*%c",info);
 			printf("\n");
 			/*Huffman Encoding*/
@@ -64,9 +64,9 @@ int main(){
 		else if(ch =='2'){
 			if(!print_info())	scanf("%c*%c",&ch);
 			else{
-				printf("Please scan the file name wait to be uncompressed.\n");
+				printf("Please input the file name wait to be uncompressed.\n");
 				scanf("%s",info);
-				printf("Please scan the file name after uncompressed.\n");
+				printf("Please input the file name after uncompressed.\n");
 				scanf("%s",result_file);
 				/*File Uncompression*/
 				uncompress(info,result_file);
@@ -102,8 +102,12 @@ int main(){
 			print_command();
 			scanf("%c*%c",&ch);
 		}
+		else if(ch == '6'){
+			print_info();
+			scanf("%c*%c",&ch);
+		}
 		else{
-			printf("Command not found, please scan again.\n");
+			printf("Command not found, please input again.\n");
 			scanf("%c*%c",&ch);
 		}
 		system("cls");
@@ -117,6 +121,7 @@ void print_command(){
 	printf(" 3 : View history.\n");
 	printf(" 4 : Show the result of Hullman Tree encoding.\n");
 	printf(" 5 : Show all the commands\n");
+	printf(" 6 : Show all the compressed files available\n");
 	printf(" 0 : EXIT the program.\n");
 }
 
@@ -127,7 +132,7 @@ void init(){
     printf("\\\n");
     printf("|  Welcome to file Compressor powered by Huffman Tree:");
     printf("  |\n");
-	printf("|  Version : V1.01 Author : Jeremy Wu                   |\n|  Class : CS1303 School : ZJSU\t\t\t\t|\n|\t\t\t\t\t\t\t|\n");
+	printf("|  Version : V1.02 Author : Jeremy Wu                   |\n|  Class : CS1303 School : ZJSU\t\t\t\t|\n|\t\t\t\t\t\t\t|\n");
 	printf("|  Warning : the input file must be named as in\t\t|\n");
     printf("|  Please choose functions as follow:\t\t\t|\n");
     printf("\\");
@@ -328,8 +333,7 @@ void transfer_to_file(long sum,char inputfile[],char sto[]){
 	}
 	fseek(info,0L,SEEK_END);
 	fprintf(info,"%s",sto);
-
-	//fprintf(info,"\n");
+	fprintf(info,"\n");
 	fclose(info);
 
 	history = fopen("history.dat","a");
@@ -519,7 +523,7 @@ int print_info(){
 		printf("\n\nThe file can be pressed now:\n");
 		while(!feof(fp)){
 			fscanf(fp,"%s",str);
-			printf("%s\n",str);
+			if(!feof(fp))   printf("%s\n",str);
 		}
 	}
 	printf("\n\n");
