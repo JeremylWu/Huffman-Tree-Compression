@@ -14,21 +14,17 @@ struct node{
 	char bits[256];
 }header[512],temp;
 
+int print_info();
+long huffmancoding(char inputfile[]);
 void print_command();
 void init();
-long huffmancoding(char inputfile[]);
 void transfer_to_file(long sum,char inputfile[],char sto[]);
 void uncompress(char sto[],char filename[]);
 void print();
 void print_history();
-int print_info();
+void cmp();
 
 long n;
-/*Quick sort*/
-int cmp(const void *a,const void *b){
-	long *pa = (long*)a,*pb = (long*)b;
-	return (int)((*pb)-(*pa));
-}
 
 int main(){
 	int i;
@@ -47,7 +43,7 @@ int main(){
 		}
 		else if(ch == '1'){
 			flag_file = 1;
-			//print();
+			print();
 			strcpy(input_file, "in");
 			//printf("Please input the file name to be compressed.\n");
 			//scanf("%s",input_file);
@@ -62,7 +58,10 @@ int main(){
 			scanf("%c*%c",&ch);
 		}
 		else if(ch =='2'){
-			if(!print_info())	scanf("%c*%c",&ch);
+			if(!print_info()){
+				print_command();
+				scanf("%c*%c",&ch);
+			}
 			else{
 				printf("Please input the file name wait to be uncompressed.\n");
 				scanf("%s",info);
@@ -70,6 +69,7 @@ int main(){
 				scanf("%s",result_file);
 				/*File Uncompression*/
 				uncompress(info,result_file);
+				print_command();
 				scanf("%c*%c",&ch);
 			}
 		}
@@ -125,15 +125,25 @@ void print_command(){
 	printf(" 0 : EXIT the program.\n");
 }
 
+/*Quick sort*/
+int cmp(const void *a,const void *b){
+	long *pa = (long*)a,*pb = (long*)b;
+	return (int)((*pb)-(*pa));
+}
+
 /*Init function*/
 void init(){
     printf("/");
     for(int i = 0; i < 55; ++i) printf("*");
     printf("\\\n");
-    printf("|  Welcome to file Compressor powered by Huffman Tree:");
+    printf("|  Welcome to File Compressor powered by Huffman Tree:");
     printf("  |\n");
-	printf("|  Version : V1.02 Author : Jeremy Wu                   |\n|  Class : CS1303 School : ZJSU\t\t\t\t|\n|\t\t\t\t\t\t\t|\n");
+	printf("|  Version : V1.03 Author : Jeremy Wu   \t\t|\n");
+	printf("|  Class : CS1303 School : ZJSU\t\t\t\t|\n");
+	printf("|  \t\t\t\t\t\t\t|\n");
 	printf("|  Warning : the input file must be named as in\t\t|\n");
+	printf("|  It's better to limit the MAX data capacity  \t\t|\n");
+	printf("|  Under 12KB or 10,000 words                  \t\t|\n");
     printf("|  Please choose functions as follow:\t\t\t|\n");
     printf("\\");
     for(int i = 0; i < 55; ++i) printf("*");
@@ -236,6 +246,7 @@ long huffmancoding(char inputfile[]){
 	fclose(input_file);
 	return prelength;
 }
+
 /*Transfer Program*/
 void transfer_to_file(long sum,char inputfile[],char sto[]){
 	double div;
@@ -321,7 +332,7 @@ void transfer_to_file(long sum,char inputfile[],char sto[]){
 	div = (double)1.0*after_length/sum;
 	printf("The length of file the former:\t%ld\n",sum);
 	printf("The length of file the later:\t%ld\n",after_length);
-	printf("Conversion rate:\t%lf%%\n",div * 100 );
+	printf("Conversion rate:\t%lf%%\n",100.0000 - div * 100 );
 	time(&now);
 	timenow = localtime(&now);
 
@@ -357,7 +368,7 @@ void transfer_to_file(long sum,char inputfile[],char sto[]){
 	fprintf(history,"\n");
 	fprintf(history,"%s\t%ld","The length of file the later:",after_length);
 	fprintf(history,"\n");
-	fprintf(history,"%s\t%lf%%","Conversion rate:",div * 100 );
+	fprintf(history,"%s\t%lf%%","Conversion rate:",100.0000 - div * 100 );
 	fprintf(history,"\n");
 	fprintf(history,"%s","****************************************\n");
 
@@ -477,7 +488,8 @@ void uncompress(char sto[],char filename[]){
 	fclose(history);
 	fclose(ifp);
 	fclose(ofp);
-	printf("\ncompression succeed!\n");
+	system("cls");
+	printf("\ncompression succeed!\n\n");
 
 	for(i=0;i<512;i++){
 		header[i].lchild = header[i].lchild = header[i].parent=-1;
@@ -485,7 +497,7 @@ void uncompress(char sto[],char filename[]){
 		header[i].ch = 0;
 		strcpy(header[i].bits,"\0");
 	}
-	return;
+
 }
 
 void print(){
@@ -504,6 +516,7 @@ void print(){
 	printf("\n\n");
 	fclose(info);
 }
+
 int print_info(){
 	FILE *fp;
 	char str[128];
@@ -530,6 +543,7 @@ int print_info(){
 	fclose(fp);
 	return 1;
 }
+
 void print_history(){
 	char ch;
 	FILE *fp;
